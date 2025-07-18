@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SistemaManejoEmpleados.Models;
 
-public partial class Empleado
+public partial class EmpleadoViewModel
 {
     [Key]
     public int ID_EMPLEADO { get; set; }
@@ -47,10 +47,10 @@ public partial class Empleado
 
 
     //FK
-    public int IdDepartamento { get; set; }
-    public int IdCargo { get; set; }
+    public int ID_DEPARTAMENTO { get; set; }
+    public int ID_CARGO { get; set; }
 
-    public virtual Cargo IdCargoNavigation { get; set; } = null!;
+    public virtual CargoViewModel IdCargoNavigation { get; set; } = null!;
 
-    public virtual Departamento IdDepartamentoNavigation { get; set; } = null!;
+    public virtual DepartamentoViewModel IdDepartamentoNavigation { get; set; } = null!;
 }

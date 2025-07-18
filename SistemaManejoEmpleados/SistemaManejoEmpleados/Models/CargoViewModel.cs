@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SistemaManejoEmpleados.Models;
 
-public partial class Cargo
+public partial class CargoViewModel
 {
     [Key]
     public int ID_CARGO { get; set; }
@@ -13,5 +13,5 @@ public partial class Cargo
     [StringLength(100)]
     public string NOMBRE_CARGO { get; set; } = null!;
 
-    public virtual ICollection<Empleado> Empleados { get; set; } = new List<Empleado>();
+    public virtual ICollection<EmpleadoViewModel> Empleados { get; set; } = new List<EmpleadoViewModel>();
 }

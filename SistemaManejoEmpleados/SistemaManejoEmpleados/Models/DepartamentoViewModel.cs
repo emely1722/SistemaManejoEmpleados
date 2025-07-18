@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SistemaManejoEmpleados.Models;
 
-public partial class Departamento
+public partial class DepartamentoViewModel
 {
     [Key]
     public int ID_DEPARTAMENTO { get; set; }
@@ -13,5 +13,5 @@ public partial class Departamento
     [StringLength(100)]
     public string NOMBRE_DEPARTAMENTO { get; set; } = null!;
 
-    public virtual ICollection<Empleado> Empleados { get; set; } = new List<Empleado>();
+    public virtual ICollection<EmpleadoViewModel> Empleados { get; set; } = new List<EmpleadoViewModel>();
 }
