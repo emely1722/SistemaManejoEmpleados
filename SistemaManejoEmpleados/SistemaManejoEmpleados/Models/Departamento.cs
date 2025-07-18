@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SistemaManejoEmpleados.Models;
 
 public partial class Departamento
 {
-    public int IdDepartamento { get; set; }
+    [Key]
+    public int ID_DEPARTAMENTO { get; set; }
 
-    public string NombreDepartamento { get; set; } = null!;
+    [Required]
+    [StringLength(100)]
+    public string NOMBRE_DEPARTAMENTO { get; set; } = null!;
 
     public virtual ICollection<Empleado> Empleados { get; set; } = new List<Empleado>();
 }
