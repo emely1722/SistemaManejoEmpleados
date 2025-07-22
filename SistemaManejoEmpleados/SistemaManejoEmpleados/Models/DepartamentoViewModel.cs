@@ -11,7 +11,7 @@ public partial class DepartamentoViewModel
 
     [Required]
     [StringLength(100)]
-    public string NOMBRE_DEPARTAMENTO { get; set; } = null!;
+    public string NOMBRE_DEPARTAMENTO { get; set; }
 
     public virtual ICollection<EmpleadoViewModel> Empleados { get; set; } = new List<EmpleadoViewModel>();
 }

@@ -1,0 +1,100 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model EmpleadoViewModel
+
+
+<h2>Registrar Empleado</h2>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">@TempData["Mensaje"]</div>
+}
+
+<form asp-action="Registrar" method="post">
+    <div>
+        <label asp-for="NOMBRE_EMPLEADO">Nombre Empleado</label>
+        <input asp-for="NOMBRE_EMPLEADO" class="form-control" />
+        <span asp-validation-for="NOMBRE_EMPLEADO" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="CEDULA_EMPLEADO">Cédula</label>
+        <input asp-for="CEDULA_EMPLEADO" class="form-control" />
+        <span asp-validation-for="CEDULA_EMPLEADO" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="GENERO">Género</label>
+        <br />
+        <input type="radio" asp-for="GENERO" value="Masculino" /> Masculino
+        <input type="radio" asp-for="GENERO" value="Femenino" /> Femenino
+    </div>
+
+    <div>
+        <label asp-for="TELEFONO_EMPLEADO">Teléfono</label>
+        <input asp-for="TELEFONO_EMPLEADO" class="form-control" />
+        <span asp-validation-for="TELEFONO_EMPLEADO" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="FECHA_INICIO">Fecha de Inicio</label>
+        <input asp-for="FECHA_INICIO" type="date" class="form-control" />
+        <span asp-validation-for="FECHA_INICIO" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="SALARIO_EMPLEADO">Salario</label>
+        <input asp-for="SALARIO_EMPLEADO" type="number" class="form-control" step="0.01" />
+        <span asp-validation-for="SALARIO_EMPLEADO" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label>Estado</label>
+        <select asp-for="ESTADO" class="form-control">
+            <option value="true">Activo</option>
+            <option value="false">Inactivo</option>
+        </select>
+    </div>
+
+    <div>
+        <label asp-for="NOMBRE_DEPARTAMENTO">Departamento</label>
+        <select asp-for="NOMBRE_DEPARTAMENTO" class="form-control" asp-items="@(new SelectList(
+																				new[] {"CAJA",
+																					   "PLATAFORMA",
+																					   "NEGOCIOS"}))">
+            <option value="">Eliga el Departamento</option>
+            <span asp-validation-for="NOMBRE_DEPARTAMENTO" class="text-danger"></span>
+        </select>
+    </div>
+
+    <div>
+        <label asp-for="NOMBRE_CARGO">Cargo</label>
+        <select asp-for="NOMBRE_CARGO" class="form-control" asp-items="@(new SelectList(
+																				new[] {"Cajero",
+                                                                                       "Cajero Principal",
+                                                                                       "Oficial de Caja",
+																					   "Representante de Ventas",
+                                                                                       "Líder de Servicio",
+                                                                                       "Representante de Servicios",
+                                                                                       "Sub Gerente de Plataforma",
+                                                                                       "Gerente de Plataforma",
+                                                                                       "Sub Gerente de Negocios Premium",
+																					   "Gerente de Negocios Premium"}))">
+            <option value="">Eliga el Cargo del Empleado</option>
+            <span asp-validation-for="NOMBRE_CARGO" class="text-danger"></span>
+        </select>
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a asp-action="/Views/Empleados/Lista" class="btn btn-secondary">Lista de Empleados</a>
+</form>
+
+
+@section Scripts {
+    <partial name ="_ValidationScriptsPartial" />
+}

@@ -66,8 +66,8 @@ public partial class ManejoempleadosContext : DbContext
             entity.Property(e => e.GENERO)
                 .HasMaxLength(10)
                 .HasColumnName("GENERO");
-            entity.Property(e => e.ID_CARGO).HasColumnName("ID_CARGO");
-            entity.Property(e => e.ID_DEPARTAMENTO).HasColumnName("ID_DEPARTAMENTO");
+            entity.Property(e => e.NOMBRE_CARGO).HasColumnName("NOMBRE_CARGO");
+            entity.Property(e => e.NOMBRE_DEPARTAMENTO).HasColumnName("NOMBRE_DEPARTAMENTO");
             entity.Property(e => e.NOMBRE_EMPLEADO)
                 .HasMaxLength(20)
                 .HasColumnName("NOMBRE_EMPLEADO");
@@ -79,12 +79,12 @@ public partial class ManejoempleadosContext : DbContext
                 .HasColumnName("TELEFONO_EMPLEADO");
 
             entity.HasOne(d => d.IdCargoNavigation).WithMany(p => p.Empleados)
-                .HasForeignKey(d => d.ID_CARGO)
+                .HasForeignKey(d => d.NOMBRE_CARGO)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__EMPLEADO__ID_CAR__3E52440B");
 
             entity.HasOne(d => d.IdDepartamentoNavigation).WithMany(p => p.Empleados)
-                .HasForeignKey(d => d.ID_DEPARTAMENTO)
+                .HasForeignKey(d => d.NOMBRE_DEPARTAMENTO)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__EMPLEADO__ID_DEP__3D5E1FD2");
         });

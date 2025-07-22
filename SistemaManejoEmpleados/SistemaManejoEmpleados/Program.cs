@@ -1,7 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using SistemaManejoEmpleados.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<ManejoempleadosContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ConexionDB")));
+
 
 var app = builder.Build();
 
@@ -25,3 +32,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
