@@ -18,11 +18,11 @@ namespace SistemaManejoEmpleados.Controllers
 
         public IActionResult Index()
         {
-            return View(new EmpleadoViewModel());
+            return View();
         }
 
         [HttpGet]
-        public IActionResult Registrar ()
+        public IActionResult Registrar()
         {
             var departamentos = _context.Departamentos.ToList();
             var cargos = _context.Cargos.ToList();
@@ -40,16 +40,16 @@ namespace SistemaManejoEmpleados.Controllers
         }
 
         [HttpPost]
-        public IActionResult Registrar(EmpleadoViewModel model)
+        public IActionResult Registrar(EmpleadoViewModel empleado)
         {
             if (ModelState.IsValid)
             {
-                _context.Empleados.Add(model);
+                _context.Empleados.Add(empleado);
                 _context.SaveChanges();
                 TempData["Mensaje"] = "Empleado registrado satisfactoriamente";
                 return RedirectToAction("Lista");
             }
-            return View("Index",model);
+            return View("Index", empleado);
         }
 
         public IActionResult Lista (int ID)
@@ -66,8 +66,8 @@ namespace SistemaManejoEmpleados.Controllers
         public IActionResult Editar(int ID)
         {
             var empleado = _context.Empleados.Find(ID);
-            ViewBag.Departamentos = _context.Departamentos.ToList();
-            ViewBag.Cargos = _context.Cargos.ToList();
+            //ViewBag.Departamentos = _context.Departamentos.ToList();
+            //ViewBag.Cargos = _context.Cargos.ToList();
             return View(empleado);
         }
 
