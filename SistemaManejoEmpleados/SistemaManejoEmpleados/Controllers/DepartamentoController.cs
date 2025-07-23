@@ -85,5 +85,19 @@ namespace SistemaManejoEmpleados.Controllers
             TempData["Mensaje"] = "Departamento Actualizado.";
             return RedirectToAction("Lista");
         }
+
+        public IActionResult Eliminar(int id)
+        {
+            var departamento = _context.Departamentos.FirstOrDefault(d => d.ID_DEPARTAMENTO == id);
+            if (departamento != null)
+            {
+                _context.Departamentos.Remove(departamento);
+                _context.SaveChanges();
+            }
+
+            TempData["Mensaje"] = "Departamento eliminado.";
+            return RedirectToAction("Lista");
+        }
+
     }
 }

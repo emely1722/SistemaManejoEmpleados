@@ -3,3 +3,33 @@
 *@
 @{
 }
+
+@model DepartamentoViewModel
+
+@{
+    ViewData["Title"] = "Registrar Departamento";
+}
+
+<h2>
+    Registro de Departamentos
+</h2>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">@TempData["Mensaje"]</div>
+}
+
+<form asp-action="Registrar" method="post">
+    <div>
+        <label asp-for="NOMBRE_DEPARTAMENTO">Nombre del Departamento</label>
+        <input asp-for="NOMBRE_DEPARTAMENTO" class="form-control" />
+        <span asp-validation-for="NOMBRE_DEPARTAMENTO" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a asp-action="/Views/Departamento/Lista" class="btn btn-secondary">Lista Departamentos</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsParcial" />
+}

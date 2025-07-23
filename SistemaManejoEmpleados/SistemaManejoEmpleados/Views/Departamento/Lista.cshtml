@@ -1,0 +1,43 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<DepartamentoViewModel>
+
+@{
+    ViewData["Title"] = "Lista de Departamentos";
+}
+
+<h2>
+    Departamentos Registrados
+</h2>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">@TempData["Mensaje"]</div>
+}
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nombre del Departamento</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var depto in Model)
+        {
+            <tr>
+                <td>@depto.ID_DEPARTAMENTO</td>
+                <td>@depto.NOMBRE_DEPARTAMENTO</td>
+                <td>
+                    <a asp-action="Editar" asp-route-id="@depto.ID_DEPARTAMENTO" class="btn btn-warning btn-sm">Editar</a>
+                    <a asp-action="Eliminar" asp-route-matricula="@depto.ID_DEPARTAMENTO" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
