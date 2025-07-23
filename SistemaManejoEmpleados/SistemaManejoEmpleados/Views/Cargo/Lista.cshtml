@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<CargoViewModel>
+
+@{
+    ViewData["Title"] = "Lista de Cargos";
+}
+
+<h2>
+    Cargos Registrados
+</h2>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">@TempData["Mensaje"]</div>
+}
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nombre del Cargo</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var cargo in Model)
+        {
+            <tr>
+                <td>@cargo.ID_CARGO</td>
+                <td>@cargo.NOMBRE_CARGO</td>
+                <td>
+                    <a asp-action="Editar" asp-route-id="@cargo.ID_CARGO" class="btn btn-warning btn-sm">Editar</a>
+                    <a asp-action="Eliminar" asp-route-id="@cargo.ID_CARGO" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

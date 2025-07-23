@@ -19,17 +19,18 @@
     <div class="alert alert-success">@TempData["Mensaje"]</div>
 }
 
-<form asp-action="Registrar" method="post">
+<form asp-action="Registrar" asp-controller="Departamento" method="post">
     <div>
         <label asp-for="NOMBRE_DEPARTAMENTO">Nombre del Departamento</label>
         <input asp-for="NOMBRE_DEPARTAMENTO" class="form-control" />
         <span asp-validation-for="NOMBRE_DEPARTAMENTO" class="text-danger"></span>
     </div>
 
+    <br />
     <button type="submit" class="btn btn-primary">Guardar</button>
-    <a asp-action="/Views/Departamento/Lista" class="btn btn-secondary">Lista Departamentos</a>
+    <a href="/Departamento/Lista" class="btn btn-secondary">Lista Departamentos</a>
 </form>
 
 @section Scripts {
-    <partial name="_ValidationScriptsParcial" />
+    <partial name="_ValidationScriptsPartial" />
 }

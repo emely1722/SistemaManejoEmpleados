@@ -4,14 +4,14 @@
 @{
 }
 
-@model DepartamentoViewModel
+@model CargoViewModel
 
 @{
     ViewData["Title"] = "Editar Departamento";
 }
 
 <h2>
-    Editar Departamento
+    Editar Cargo
 </h2>
 
 @if (TempData["Mensaje"] != null)
@@ -20,16 +20,16 @@
 }
 
 <form asp-action="Editar" method="post">
-    <input type="hidden" asp-for="ID_DEPARTAMENTO" />
+    <input type="hidden" asp-for="ID_CARGO" />
     <div>
-        <label asp-for="NOMBRE_DEPARTAMENTO"></label>
-        <input asp-action="NOMBRE_DEPARTAMENTO" class="form-control" />
-        <span asp-validation-for="NOMBRE_DEPARTAMENTO" class="text-danger"></span>
+        <label asp-for="NOMBRE_CARGO"></label>
+        <input asp-action="NOMBRE_CARGO" class="form-control" />
+        <span asp-validation-for="NOMBRE_CARGO" class="text-danger"></span>
     </div>
     <br />
 
     <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-    <a href="/Departamento/Lista" class="btn btn-secondary">Volver a la Lista</a>
+    <a href="/Cargo/Lista" class="btn btn-secondary">Volver a la Lista</a>
 
 </form>
 

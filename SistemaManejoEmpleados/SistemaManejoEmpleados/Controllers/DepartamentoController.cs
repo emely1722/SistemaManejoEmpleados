@@ -20,17 +20,16 @@ namespace SistemaManejoEmpleados.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View(new DepartamentoViewModel());
+            return View();
         }
 
         [HttpPost]
         public IActionResult Registrar (DepartamentoViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                var nuevoDepartamento = new DepartamentoViewModel
+                var nuevoDepartamento = new DepartamentoViewModel()
                 {
-
                     NOMBRE_DEPARTAMENTO = model.NOMBRE_DEPARTAMENTO
                 };
             _context.Departamentos.Add(nuevoDepartamento);

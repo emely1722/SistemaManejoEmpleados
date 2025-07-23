@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model CargoViewModel
+
+@{
+    ViewData["Title"] = "Registrar Cargo";
+}
+
+<h2>
+    Registro de Cargos
+</h2>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">@TempData["Mensaje"]</div>
+}
+
+<form asp-action="Registrar" asp-controller="Cargo" method="post">
+    <div>
+        <label asp-for="NOMBRE_CARGO">Nombre del Cargo</label>
+        <input asp-for="NOMBRE_CARGO" class="form-control" />
+        <span asp-validation-for="NOMBRE_CARGO" class="text-danger"></span>
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a href="/Cargo/Lista" class="btn btn-secondary">Lista Cargos</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,6 +1,6 @@
-﻿namespace SistemaManejoEmpleados.Models
-{
-    public class EmpleadoViewModel
-    {
-    }
-}
+﻿//namespace SistemaManejoEmpleados.Models
+//{
+//    public class EmpleadoViewModel
+//    {
+//    }
+//}
