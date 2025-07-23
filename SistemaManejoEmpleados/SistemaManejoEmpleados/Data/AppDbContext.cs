@@ -12,5 +12,9 @@ namespace SistemaManejoEmpleados.Data
 
 
         public DbSet<EmpleadoViewModel> EMPLEADO { get; set; }
+
+        public DbSet<DepartamentoViewModel> Departamento { get; set;}
+
+        public DbSet<CargoViewModel> Cargo { get; set; }    
     }
 }
