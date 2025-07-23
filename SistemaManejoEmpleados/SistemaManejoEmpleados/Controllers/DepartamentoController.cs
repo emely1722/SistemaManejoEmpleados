@@ -5,6 +5,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using SistemaManejoEmpleados.Data;
 using System.Security.Cryptography.Xml;
+using System.Text;
 
 namespace SistemaManejoEmpleados.Controllers
 {
@@ -98,5 +99,23 @@ namespace SistemaManejoEmpleados.Controllers
             return RedirectToAction("Lista");
         }
 
+        public ActionResult Exportar()
+        {
+            var departamentos = _context.Departamentos.ToList();
+
+            var csv = new StringBuilder();
+            csv.AppendLine("\"ID\",\"Nombre del Departamento\"");
+
+            foreach (var d in departamentos)
+            {
+                csv.AppendLine($"\"{d.ID_DEPARTAMENTO}\",\"{d.NOMBRE_DEPARTAMENTO}\"");
+            }
+
+            var bom = Encoding.UTF8.GetPreamble();
+            var csvBytes = Encoding.UTF8.GetBytes(csv.ToString());
+            var finalBytes = bom.Concat(csvBytes).ToArray();
+
+            return File(finalBytes, "text/csv", "Departamentos.csv");
+        }
     }
 }

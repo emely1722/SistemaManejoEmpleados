@@ -5,6 +5,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using SistemaManejoEmpleados.Data;
 using System.Security.Cryptography.Xml;
+using System.Text;
 
 namespace SistemaManejoEmpleados.Controllers
 {
@@ -99,5 +100,25 @@ namespace SistemaManejoEmpleados.Controllers
             TempData["Mensaje"] = "Cargo eliminado.";
             return RedirectToAction("Lista");
         }
+
+        public ActionResult Exportar()
+        {
+            var cargos = _context.Cargos.ToList();
+
+            var csv = new StringBuilder();
+            csv.AppendLine("\"ID\",\"Nombre del Cargo\"");
+
+            foreach (var c in cargos)
+            {
+                csv.AppendLine($"\"{c.ID_CARGO}\",\"{c.NOMBRE_CARGO}\"");
+            }
+
+            var bom = Encoding.UTF8.GetPreamble();
+            var csvBytes = Encoding.UTF8.GetBytes(csv.ToString());
+            var finalBytes = bom.Concat(csvBytes).ToArray();
+
+            return File(finalBytes, "text/csv", "Cargos.csv");
+        }
+
     }
 }
