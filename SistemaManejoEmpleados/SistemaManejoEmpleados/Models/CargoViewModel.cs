@@ -16,5 +16,7 @@ namespace SistemaManejoEmpleados.Models
         [Display(Name ="Nombre del Cargo")]
         public string NOMBRE_CARGO { get; set; }
 
+        public List<EmpleadoViewModel> Empleado { get; set; } 
+
     }
 }

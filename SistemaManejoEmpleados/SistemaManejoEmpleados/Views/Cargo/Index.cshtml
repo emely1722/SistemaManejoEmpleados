@@ -5,31 +5,40 @@
 }
 
 @model CargoViewModel
-
 @{
     ViewData["Title"] = "Registrar Cargo";
 }
 
-<h2>
-    Registro de Cargos
-</h2>
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Registro de Cargos</h4>
+        </div>
+        <div class="card-body">
+            @if (TempData["Mensaje"] != null)
+            {
+                <div class="alert alert-success">@TempData["Mensaje"]</div>
+            }
 
-@if (TempData["Mensaje"] != null)
-{
-    <div class="alert alert-success">@TempData["Mensaje"]</div>
-}
+            <form asp-action="Registrar" asp-controller="Cargo" method="post">
+                <div class="mb-3">
+                    <label asp-for="NOMBRE_CARGO" class="form-label"></label>
+                    <input asp-for="NOMBRE_CARGO" class="form-control" />
+                    <span asp-validation-for="NOMBRE_CARGO" class="text-danger"></span>
+                </div>
 
-<form asp-action="Registrar" asp-controller="Cargo" method="post">
-    <div>
-        <label asp-for="NOMBRE_CARGO">Nombre del Cargo</label>
-        <input asp-for="NOMBRE_CARGO" class="form-control" />
-        <span asp-validation-for="NOMBRE_CARGO" class="text-danger"></span>
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-save"></i> Guardar
+                    </button>
+                    <a href="@Url.Action("Lista", "Cargo")" class="btn btn-outline-secondary">
+                        <i class="fa fa-list"></i> Ver Lista de Cargos
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <br />
-    <button type="submit" class="btn btn-primary">Guardar</button>
-    <a href="/Cargo/Lista" class="btn btn-secondary">Lista Cargos</a>
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

@@ -5,33 +5,42 @@
 }
 
 @model CargoViewModel
-
 @{
-    ViewData["Title"] = "Editar Departamento";
+    ViewData["Title"] = "Editar Cargo";
 }
 
-<h2>
-    Editar Cargo
-</h2>
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-warning text-dark">
+            <h4 class="mb-0">Editar Cargo</h4>
+        </div>
+        <div class="card-body">
+            @if (TempData["Mensaje"] != null)
+            {
+                <div class="alert alert-info">@TempData["Mensaje"]</div>
+            }
 
-@if (TempData["Mensaje"] != null)
-{
-    <div class="alert alert-info">@TempData["Mensaje"]</div>
-}
+            <form asp-action="Editar" method="post">
+                <input type="hidden" asp-for="ID_CARGO" />
 
-<form asp-action="Editar" method="post">
-    <input type="hidden" asp-for="ID_CARGO" />
-    <div>
-        <label asp-for="NOMBRE_CARGO"></label>
-        <input asp-action="NOMBRE_CARGO" class="form-control" />
-        <span asp-validation-for="NOMBRE_CARGO" class="text-danger"></span>
+                <div class="mb-3">
+                    <label asp-for="NOMBRE_CARGO" class="form-label"></label>
+                    <input asp-for="NOMBRE_CARGO" class="form-control" />
+                    <span asp-validation-for="NOMBRE_CARGO" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-save"></i> Guardar Cambios
+                    </button>
+                    <a href="@Url.Action("Lista", "Cargo")" class="btn btn-outline-secondary">
+                        <i class="fa fa-arrow-left"></i> Volver a la Lista
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
-    <br />
-
-    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-    <a href="/Cargo/Lista" class="btn btn-secondary">Volver a la Lista</a>
-
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

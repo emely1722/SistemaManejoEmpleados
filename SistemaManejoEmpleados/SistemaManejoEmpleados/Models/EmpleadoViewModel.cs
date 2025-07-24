@@ -39,7 +39,7 @@ namespace SistemaManejoEmpleados.Models
         [DataType(DataType.Date)]
         [Column("FECHA_INICIO")]
         [Display(Name = "Fecha de Inicio")]
-        public DateOnly FECHA_INICIO { get; set; }
+        public DateTime FECHA_INICIO { get; set; }
 
 
         [Required(ErrorMessage = "El salario es obligatorio.")]
@@ -76,12 +76,17 @@ namespace SistemaManejoEmpleados.Models
             get
             {
                 var hoy = DateTime.Today;
-                var inicio = FECHA_INICIO.ToDateTime(TimeOnly.MinValue);
+                var inicio = FECHA_INICIO;
                 var tiempo = hoy - inicio;
                 var años = (int)(tiempo.TotalDays / 365.25);
                 var meses = (int)((tiempo.TotalDays % 365.25) / 30);
                 return $"{años} años y {meses} meses";
             }
         }
+
+        public virtual CargoViewModel IdCargoNavigation { get; set; }
+        public virtual DepartamentoViewModel IdDepartamentoNavigation { get; set; }
+
+
     }
 }

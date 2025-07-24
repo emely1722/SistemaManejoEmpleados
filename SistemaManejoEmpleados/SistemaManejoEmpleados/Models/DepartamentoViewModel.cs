@@ -15,6 +15,7 @@ namespace SistemaManejoEmpleados.Models
         [Display(Name ="Nombre del Departamento")]
         public string NOMBRE_DEPARTAMENTO { get; set; }
 
-       
+        public List<EmpleadoViewModel> Empleados { get; set; }
+
     }
 }

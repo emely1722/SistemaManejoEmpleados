@@ -11,7 +11,7 @@ namespace SistemaManejoEmpleados.Data
            { }
 
 
-        //public DbSet<EmpleadoViewModel> EMPLEADO { get; set; }
+        public DbSet<EmpleadoViewModel> EMPLEADO { get; set; }
 
         public DbSet<DepartamentoViewModel> Departamento { get; set;}
 

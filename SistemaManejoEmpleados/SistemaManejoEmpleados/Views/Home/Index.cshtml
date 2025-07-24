@@ -1,8 +1,64 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white text-center">
+            <h2 class="mb-0">Sistema de Manejo de Empleados <strong>"PrefiSoluciones"</strong></h2>
+        </div>
+        <div class="card-body text-center">
+            <p class="lead mb-3">
+                Bienvenido a la plataforma integral para gestionar empleados, departamentos y cargos de manera eficiente.
+            </p>
+
+            <p class="mb-4">
+                Desarrollado con <strong>ASP.NET Core MVC</strong> y <strong>Entity Framework Core</strong>, este sistema brinda control, organización y flexibilidad en la administración de recursos humanos.
+            </p>
+
+            <div class="row justify-content-center">
+                <div class="col-md-4 mb-3">
+                    <div class="card border-success h-100">
+                        <div class="card-body">
+                            <h5 class="card-title text-success">Gestión de Departamentos</h5>
+                            <p class="card-text">Cree, edite y consulte los departamentos disponibles en la empresa.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card border-warning h-100">
+                        <div class="card-body">
+                            <h5 class="card-title text-warning">Gestión de Cargos</h5>
+                            <p class="card-text">Administre los roles laborales y asigne responsabilidades por cargo.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card border-info h-100">
+                        <div class="card-body">
+                            <h5 class="card-title text-info">Gestión de Empleados</h5>
+                            <p class="card-text">Registro, edición y exportación de empleados activos e inactivos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="@Url.Action("Index", "Empleados")" class="btn btn-outline-primary mt-4">
+                <i class="fa fa-user-plus"></i> Ir al Registro de Empleados
+            </a>
+        </div>
+    </div>
 </div>
+
+<style>
+    body::after {
+        content: "Emely Ferreras Acosta ©";
+        position: fixed;
+        bottom: 10px;
+        right: 15px;
+        font-size: 13px;
+        color: rgba(0, 0, 0, 0.3);
+        pointer-events: none;
+        z-index: 9999;
+    }
+</style>
