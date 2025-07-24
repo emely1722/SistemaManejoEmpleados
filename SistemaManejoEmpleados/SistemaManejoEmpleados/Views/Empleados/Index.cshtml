@@ -4,98 +4,101 @@
 @{
 }
 
-@* @model EmpleadoViewModel
-
-
-<h2>Registrar Empleado</h2>
-
-@if (TempData["Mensaje"] != null)
-{
-    <div class="alert alert-success">@TempData["Mensaje"]</div>
+@model EmpleadoViewModel
+@{
+    ViewData["Title"] = "Registro de Empleado";
 }
 
-<form asp-action="Registrar" method="post">
-    <div>
-        <label asp-for="NOMBRE_EMPLEADO">Nombre Empleado</label>
-        <input asp-for="NOMBRE_EMPLEADO" class="form-control" />
-        <span asp-validation-for="NOMBRE_EMPLEADO" class="text-danger"></span>
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Registrar Nuevo Empleado</h4>
+        </div>
+        <div class="card-body">
+            @if (TempData["Mensaje"] != null)
+            {
+                <div class="alert alert-success">@TempData["Mensaje"]</div>
+            }
+
+            <form asp-action="Registrar" method="post">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label asp-for="NOMBRE_EMPLEADO" class="form-label"></label>
+                        <input asp-for="NOMBRE_EMPLEADO" class="form-control" />
+                        <span asp-validation-for="NOMBRE_EMPLEADO" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="CEDULA_EMPLEADO" class="form-label"></label>
+                        <input asp-for="CEDULA_EMPLEADO" class="form-control" />
+                        <span asp-validation-for="CEDULA_EMPLEADO" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label asp-for="GENERO" class="form-label"></label>
+                        <select asp-for="GENERO" class="form-select">
+                            <option value="">Seleccione</option>
+                            <option value="Femenino">Femenino</option>
+                            <option value="Masculino">Masculino</option>
+                        </select>
+                        <span asp-validation-for="GENERO" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="TELEFONO_EMPLEADO" class="form-label"></label>
+                        <input asp-for="TELEFONO_EMPLEADO" class="form-control" />
+                        <span asp-validation-for="TELEFONO_EMPLEADO" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label asp-for="FECHA_INICIO" class="form-label"></label>
+                        <input asp-for="FECHA_INICIO" type="date" class="form-control" />
+                        <span asp-validation-for="FECHA_INICIO" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="SALARIO_EMPLEADO" class="form-label"></label>
+                        <input asp-for="SALARIO_EMPLEADO" class="form-control" />
+                        <span asp-validation-for="SALARIO_EMPLEADO" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input asp-for="ESTADO" type="checkbox" class="form-check-input" />
+                        <label asp-for="ESTADO" class="form-check-label">Activo</label>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label asp-for="ID_DEPARTAMENTO" class="form-label"></label>
+                        <select asp-for="ID_DEPARTAMENTO" class="form-select"
+                                asp-items="@(new SelectList(ViewBag.Departamentos, "ID_DEPARTAMENTO", "NOMBRE_DEPARTAMENTO"))">
+                            <option value="">Seleccione Departamento</option>
+                        </select>
+                        <span asp-validation-for="ID_DEPARTAMENTO" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="ID_CARGO" class="form-label"></label>
+                        <select asp-for="ID_CARGO" class="form-select"
+                                asp-items="@(new SelectList(ViewBag.Cargos, "ID_CARGO", "NOMBRE_CARGO"))">
+                            <option value="">Seleccione Cargo</option>
+                        </select>
+                        <span asp-validation-for="ID_CARGO" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <a href="/Empleados/Lista" class="btn btn-outline-secondary">Ver Lista de Empleados</a>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <div>
-        <label asp-for="CEDULA_EMPLEADO">Cédula</label>
-        <input asp-for="CEDULA_EMPLEADO" class="form-control" />
-        <span asp-validation-for="CEDULA_EMPLEADO" class="text-danger"></span>
-    </div>
-
-    <div>
-        <label asp-for="GENERO">Género</label>
-        <br />
-        <input type="radio" asp-for="GENERO" value="Masculino" /> Masculino
-        <input type="radio" asp-for="GENERO" value="Femenino" /> Femenino
-    </div>
-
-    <div>
-        <label asp-for="TELEFONO_EMPLEADO">Teléfono</label>
-        <input asp-for="TELEFONO_EMPLEADO" class="form-control" />
-        <span asp-validation-for="TELEFONO_EMPLEADO" class="text-danger"></span>
-    </div>
-
-    <div>
-        <label asp-for="FECHA_INICIO">Fecha de Inicio</label>
-        <input asp-for="FECHA_INICIO" type="date" class="form-control" />
-        <span asp-validation-for="FECHA_INICIO" class="text-danger"></span>
-    </div>
-
-    <div>
-        <label asp-for="SALARIO_EMPLEADO">Salario</label>
-        <input asp-for="SALARIO_EMPLEADO" type="number" class="form-control" step="0.01" />
-        <span asp-validation-for="SALARIO_EMPLEADO" class="text-danger"></span>
-    </div>
-
-    <div>
-        <label>Estado</label>
-        <select asp-for="ESTADO" class="form-control">
-            <option value="true">Activo</option>
-            <option value="false">Inactivo</option>
-        </select>
-    </div>
-
-    <div>
-        <label asp-for="NOMBRE_DEPARTAMENTO">Departamento</label>
-        <select asp-for="NOMBRE_DEPARTAMENTO" class="form-control" asp-items="@(new SelectList(
-																				new[] {"CAJA",
-																					   "PLATAFORMA",
-																					   "NEGOCIOS"}))">
-            <option value="">Eliga el Departamento</option>
-            <span asp-validation-for="NOMBRE_DEPARTAMENTO" class="text-danger"></span>
-        </select>
-    </div>
-
-    <div>
-        <label asp-for="NOMBRE_CARGO">Cargo</label>
-        <select asp-for="NOMBRE_CARGO" class="form-control" asp-items="@(new SelectList(
-																				new[] {"Cajero",
-                                                                                       "Cajero Principal",
-                                                                                       "Oficial de Caja",
-																					   "Representante de Ventas",
-                                                                                       "Líder de Servicio",
-                                                                                       "Representante de Servicios",
-                                                                                       "Sub Gerente de Plataforma",
-                                                                                       "Gerente de Plataforma",
-                                                                                       "Sub Gerente de Negocios Premium",
-																					   "Gerente de Negocios Premium"}))">
-            <option value="">Eliga el Cargo del Empleado</option>
-            <span asp-validation-for="NOMBRE_CARGO" class="text-danger"></span>
-        </select>
-    </div>
-
-    <br />
-    <button type="submit" class="btn btn-primary">Guardar</button>
-    <a asp-action="/Views/Empleados/Lista" class="btn btn-secondary">Lista de Empleados</a>
-</form>
-
+</div>
 
 @section Scripts {
-    <partial name ="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }
- *@

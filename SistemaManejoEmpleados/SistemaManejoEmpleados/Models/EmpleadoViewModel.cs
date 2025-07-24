@@ -2,9 +2,11 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.InteropServices;
 
 namespace SistemaManejoEmpleados.Models
 {
+    [Table("EMPLEADO")]
     public class EmpleadoViewModel
     {
         [Key]
@@ -21,40 +23,52 @@ namespace SistemaManejoEmpleados.Models
         [Column("CEDULA_EMPLEADO")]
         [Display(Name = "Cédula")]
         public string CEDULA_EMPLEADO { get; set; }
+
         [Required(ErrorMessage = "El género es obligatorio.")]
+        [Column("GENERO")]
         [Display(Name = "Género")]
         public string GENERO { get; set; }
 
-        [Phone(ErrorMessage = "Número telefónico inválido.")]
+        [Phone(ErrorMessage = "Número telefónico obligatorio.")]
+        [Column("TELEFONO_EMPLEADO")]
         [Display(Name = "Teléfono")]
         public string TELEFONO_EMPLEADO { get; set; }
 
+
         [Required(ErrorMessage = "Fecha de inicio obligatoria.")]
         [DataType(DataType.Date)]
+        [Column("FECHA_INICIO")]
         [Display(Name = "Fecha de Inicio")]
         public DateOnly FECHA_INICIO { get; set; }
 
+
         [Required(ErrorMessage = "El salario es obligatorio.")]
         [Range(0, double.MaxValue, ErrorMessage = "El salario debe ser positivo.")]
+        [Column("SALARIO_EMPLEADO")]
         [Display(Name = "Salario")]
         public decimal SALARIO_EMPLEADO { get; set; }
 
+        [Column("ESTADO")]
         [Display(Name = "Estado (Activo/Inactivo)")]
         public bool ESTADO { get; set; }
 
         [Required(ErrorMessage = "Seleccione un departamento.")]
+        [ForeignKey("DEPARTAMENTO")]
         [Display(Name = "Departamento")]
         public int ID_DEPARTAMENTO { get; set; }
 
-        [Display(Name = "Nombre del Departamento")]
-        public string NOMBRE_DEPARTAMENTO { get; set; }
+        //[Column("NOMBRE_DEPARTAMENTO")]
+        //[Display(Name = "Nombre del Departamento")]
+        //public string NOMBRE_DEPARTAMENTO { get; set; }
 
         [Required(ErrorMessage = "Seleccione un cargo.")]
+        [ForeignKey("CARGO")]
         [Display(Name = "Cargo")]
         public int ID_CARGO { get; set; }
 
-        [Display(Name = "Nombre del Cargo")]
-        public string NOMBRE_CARGO { get; set; }
+        //[Column("NOMBRE_CARGO")]
+        //[Display(Name = "Nombre del Cargo")]
+        //public string NOMBRE_CARGO { get; set; }
 
         [Display(Name = "Tiempo en la Empresa")]
         public string TIEMPO_EN_EMPRESA

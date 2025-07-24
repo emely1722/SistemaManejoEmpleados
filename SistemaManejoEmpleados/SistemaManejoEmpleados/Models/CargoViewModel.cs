@@ -15,5 +15,6 @@ namespace SistemaManejoEmpleados.Models
         [Column ("NOMBRE_CARGO")]
         [Display(Name ="Nombre del Cargo")]
         public string NOMBRE_CARGO { get; set; }
+
     }
 }
