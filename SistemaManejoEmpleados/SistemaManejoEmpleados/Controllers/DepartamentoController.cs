@@ -27,11 +27,11 @@ namespace SistemaManejoEmpleados.Controllers
         [HttpPost]
         public IActionResult Registrar (DepartamentoViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var nuevoDepartamento = new DepartamentoViewModel()
+                var nuevoDepartamento = new Departamento()
                 {
-                    NOMBRE_DEPARTAMENTO = model.NOMBRE_DEPARTAMENTO
+                    NombreDepartamento = model.NOMBRE_DEPARTAMENTO
                 };
             _context.Departamentos.Add(nuevoDepartamento);
             _context.SaveChanges();
@@ -46,8 +46,8 @@ namespace SistemaManejoEmpleados.Controllers
             var lista = _context.Departamentos
                 .Select (d => new DepartamentoViewModel
                 {
-                    ID_DEPARTAMENTO = d.ID_DEPARTAMENTO,
-                    NOMBRE_DEPARTAMENTO = d.NOMBRE_DEPARTAMENTO
+                    ID_DEPARTAMENTO = d.IdDepartamento,
+                    NOMBRE_DEPARTAMENTO = d.NombreDepartamento
                 }).ToList();
 
             return View(lista);
@@ -62,8 +62,8 @@ namespace SistemaManejoEmpleados.Controllers
 
             var model = new DepartamentoViewModel
             {
-                ID_DEPARTAMENTO = departamento.ID_DEPARTAMENTO,
-                NOMBRE_DEPARTAMENTO = departamento.NOMBRE_DEPARTAMENTO
+                ID_DEPARTAMENTO = departamento.IdDepartamento,
+                NOMBRE_DEPARTAMENTO = departamento.NombreDepartamento
             };
 
             return View(model);
@@ -79,7 +79,7 @@ namespace SistemaManejoEmpleados.Controllers
             if (departamento == null)
                 return NotFound();
 
-            departamento.NOMBRE_DEPARTAMENTO = model.NOMBRE_DEPARTAMENTO;
+            departamento.NombreDepartamento = model.NOMBRE_DEPARTAMENTO;
             _context.SaveChanges();
 
             TempData["Mensaje"] = "Departamento Actualizado.";
@@ -88,7 +88,7 @@ namespace SistemaManejoEmpleados.Controllers
 
         public IActionResult Eliminar(int id)
         {
-            var departamento = _context.Departamentos.FirstOrDefault(d => d.ID_DEPARTAMENTO == id);
+            var departamento = _context.Departamentos.FirstOrDefault(d => d.IdDepartamento == id);
             if (departamento != null)
             {
                 _context.Departamentos.Remove(departamento);
@@ -108,7 +108,7 @@ namespace SistemaManejoEmpleados.Controllers
 
             foreach (var d in departamentos)
             {
-                csv.AppendLine($"\"{d.ID_DEPARTAMENTO}\",\"{d.NOMBRE_DEPARTAMENTO}\"");
+                csv.AppendLine($"\"{d.IdDepartamento}\",\"{d.NombreDepartamento}\"");
             }
 
             var bom = Encoding.UTF8.GetPreamble();

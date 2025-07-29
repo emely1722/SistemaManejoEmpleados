@@ -15,12 +15,11 @@ public partial class ManejoempleadosContext : DbContext
     {
     }
 
-    public virtual DbSet<CargoViewModel> Cargos { get; set; }
+    public virtual DbSet<Cargo> Cargos { get; set; }
 
-    public virtual DbSet<DepartamentoViewModel> Departamentos { get; set; }
+    public virtual DbSet<Departamento> Departamentos { get; set; }
 
-    public DbSet<EmpleadoViewModel> Empleados { get; set; }
-
+    public virtual DbSet<Empleado> Empleados { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -28,70 +27,66 @@ public partial class ManejoempleadosContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<CargoViewModel>(entity =>
+        modelBuilder.Entity<Cargo>(entity =>
         {
-            entity.HasKey(e => e.ID_CARGO).HasName("PK__CARGO__6F4DBE2BE8BB4648");
+            entity.HasKey(e => e.IdCargo).HasName("PK__CARGO__6F4DBE2BE8BB4648");
 
             entity.ToTable("CARGO");
 
-            entity.Property(e => e.ID_CARGO).HasColumnName("ID_CARGO");
-            entity.Property(e => e.NOMBRE_CARGO)
+            entity.Property(e => e.IdCargo).HasColumnName("ID_CARGO");
+            entity.Property(e => e.NombreCargo)
                 .HasMaxLength(100)
                 .HasColumnName("NOMBRE_CARGO");
         });
 
-        modelBuilder.Entity<DepartamentoViewModel>(entity =>
+        modelBuilder.Entity<Departamento>(entity =>
         {
-            entity.HasKey(e => e.ID_DEPARTAMENTO).HasName("PK__DEPARTAM__52E77BE041C643A6");
+            entity.HasKey(e => e.IdDepartamento).HasName("PK__DEPARTAM__52E77BE041C643A6");
 
             entity.ToTable("DEPARTAMENTO");
 
-            entity.Property(e => e.ID_DEPARTAMENTO).HasColumnName("ID_DEPARTAMENTO");
-            entity.Property(e => e.NOMBRE_DEPARTAMENTO)
+            entity.Property(e => e.IdDepartamento).HasColumnName("ID_DEPARTAMENTO");
+            entity.Property(e => e.NombreDepartamento)
                 .HasMaxLength(100)
                 .HasColumnName("NOMBRE_DEPARTAMENTO");
         });
 
-        modelBuilder.Entity<EmpleadoViewModel>(entity =>
+        modelBuilder.Entity<Empleado>(entity =>
         {
-            entity.HasKey(e => e.ID_EMPLEADO).HasName("PK__EMPLEADO__922CA269D51A1741");
+            entity.HasKey(e => e.IdEmpleado).HasName("PK__EMPLEADO__922CA2692EDA7F80");
 
             entity.ToTable("EMPLEADO");
 
-            entity.Property(e => e.ID_EMPLEADO).HasColumnName("ID_EMPLEADO");
-            entity.Property(e => e.CEDULA_EMPLEADO)
+            entity.Property(e => e.IdEmpleado).HasColumnName("ID_EMPLEADO");
+            entity.Property(e => e.CedulaEmpleado)
                 .HasMaxLength(100)
                 .HasColumnName("CEDULA_EMPLEADO");
-            entity.Property(e => e.ESTADO).HasColumnName("ESTADO");
-            entity.Property(e => e.FECHA_INICIO).HasColumnName("FECHA_INICIO");
-            entity.Property(e => e.GENERO)
+            entity.Property(e => e.Estado).HasColumnName("ESTADO");
+            entity.Property(e => e.FechaInicio).HasColumnName("FECHA_INICIO");
+            entity.Property(e => e.Genero)
                 .HasMaxLength(10)
                 .HasColumnName("GENERO");
-            entity.Property(e => e.ID_CARGO).HasColumnName("NOMBRE_CARGO");
-            entity.Property(e => e.ID_DEPARTAMENTO).HasColumnName("NOMBRE_DEPARTAMENTO");
-            entity.Property(e => e.NOMBRE_EMPLEADO)
-                .HasMaxLength(20)
+            entity.Property(e => e.IdCargo).HasColumnName("ID_CARGO");
+            entity.Property(e => e.IdDepartamento).HasColumnName("ID_DEPARTAMENTO");
+            entity.Property(e => e.NombreEmpleado)
+                .HasMaxLength(100)
                 .HasColumnName("NOMBRE_EMPLEADO");
-            entity.Property(e => e.SALARIO_EMPLEADO)
+            entity.Property(e => e.SalarioEmpleado)
                 .HasColumnType("decimal(10, 2)")
                 .HasColumnName("SALARIO_EMPLEADO");
-            entity.Property(e => e.TELEFONO_EMPLEADO)
+            entity.Property(e => e.TelefonoEmpleado)
                 .HasMaxLength(20)
                 .HasColumnName("TELEFONO_EMPLEADO");
 
-            entity.HasOne(d => d.IdCargoNavigation)
-                .WithMany(p => p.Empleado)
-                .HasForeignKey(d => d.ID_CARGO) 
+            entity.HasOne(d => d.IdCargoNavigation).WithMany(p => p.Empleados)
+                .HasForeignKey(d => d.IdCargo)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__EMPLEADO__ID_CAR__3E52440B");
+                .HasConstraintName("FK__EMPLEADO__ID_CAR__4222D4EF");
 
-            entity.HasOne(d => d.IdDepartamentoNavigation)
-                .WithMany(p => p.Empleados)
-                .HasForeignKey(d => d.ID_DEPARTAMENTO) 
+            entity.HasOne(d => d.IdDepartamentoNavigation).WithMany(p => p.Empleados)
+                .HasForeignKey(d => d.IdDepartamento)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__EMPLEADO__ID_DEP__3D5E1FD2");
-
-
+                .HasConstraintName("FK__EMPLEADO__ID_DEP__412EB0B6");
         });
 
         OnModelCreatingPartial(modelBuilder);

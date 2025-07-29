@@ -27,13 +27,12 @@ namespace SistemaManejoEmpleados.Controllers
         [HttpPost]
         public IActionResult Registrar (CargoViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var nuevoCargo = new CargoViewModel()
+                var nuevoCargo = new Cargo()
                 {
-                    NOMBRE_CARGO = model.NOMBRE_CARGO
+                    NombreCargo = model.NOMBRE_CARGO
                 };
-
                 _context.Cargos.Add(nuevoCargo);
                 _context.SaveChanges();
                 TempData["Mensaje"] = "Cargo Registrado";
@@ -48,8 +47,8 @@ namespace SistemaManejoEmpleados.Controllers
             var lista = _context.Cargos
                .Select(d => new CargoViewModel
                {
-                   ID_CARGO = d.ID_CARGO,
-                   NOMBRE_CARGO = d.NOMBRE_CARGO
+                   ID_CARGO = d.IdCargo,
+                   NOMBRE_CARGO = d.NombreCargo
                }).ToList();
 
             return View(lista);
@@ -64,8 +63,8 @@ namespace SistemaManejoEmpleados.Controllers
 
             var model = new CargoViewModel
             {
-                ID_CARGO = cargos.ID_CARGO,
-                NOMBRE_CARGO = cargos.NOMBRE_CARGO
+                ID_CARGO = cargos.IdCargo,
+                NOMBRE_CARGO = cargos.NombreCargo
             };
 
             return View(model);
@@ -81,7 +80,7 @@ namespace SistemaManejoEmpleados.Controllers
             if (cargos == null)
                 return NotFound();
 
-            cargos.NOMBRE_CARGO = model.NOMBRE_CARGO;
+            cargos.NombreCargo = model.NOMBRE_CARGO;
             _context.SaveChanges();
 
             TempData["Mensaje"] = "Cargo Actualizado.";
@@ -90,7 +89,7 @@ namespace SistemaManejoEmpleados.Controllers
 
         public IActionResult Eliminar(int id)
         {
-            var cargos = _context.Cargos.FirstOrDefault(d => d.ID_CARGO == id);
+            var cargos = _context.Cargos.FirstOrDefault(d => d.IdCargo == id);
             if (cargos != null)
             {
                 _context.Cargos.Remove(cargos);
@@ -110,7 +109,7 @@ namespace SistemaManejoEmpleados.Controllers
 
             foreach (var c in cargos)
             {
-                csv.AppendLine($"\"{c.ID_CARGO}\",\"{c.NOMBRE_CARGO}\"");
+                csv.AppendLine($"\"{c.IdCargo}\",\"{c.NombreCargo}\"");
             }
 
             var bom = Encoding.UTF8.GetPreamble();

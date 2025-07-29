@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 using System.Runtime.InteropServices;
 
 namespace SistemaManejoEmpleados.Models
@@ -57,18 +58,14 @@ namespace SistemaManejoEmpleados.Models
         [Display(Name = "Departamento")]
         public int ID_DEPARTAMENTO { get; set; }
 
-        //[Column("NOMBRE_DEPARTAMENTO")]
-        //[Display(Name = "Nombre del Departamento")]
-        //public string NOMBRE_DEPARTAMENTO { get; set; }
+        public IEnumerable<SelectListItem> Departamentos { get; set; }
 
         [Required(ErrorMessage = "Seleccione un cargo.")]
         [ForeignKey("CARGO")]
         [Display(Name = "Cargo")]
         public int ID_CARGO { get; set; }
 
-        //[Column("NOMBRE_CARGO")]
-        //[Display(Name = "Nombre del Cargo")]
-        //public string NOMBRE_CARGO { get; set; }
+        public IEnumerable<SelectListItem> Cargos { get; set; }
 
         [Display(Name = "Tiempo en la Empresa")]
         public string TIEMPO_EN_EMPRESA
@@ -87,6 +84,11 @@ namespace SistemaManejoEmpleados.Models
         public virtual CargoViewModel IdCargoNavigation { get; set; }
         public virtual DepartamentoViewModel IdDepartamentoNavigation { get; set; }
 
+		public string NOMBRE_CARGO { get; set; }
+		public string NOMBRE_DEPARTAMENTO { get; set; }
 
-    }
+
+
+
+	}
 }

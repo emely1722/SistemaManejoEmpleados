@@ -75,7 +75,7 @@
                     <div class="col-md-6">
                         <label asp-for="ID_DEPARTAMENTO" class="form-label"></label>
                         <select asp-for="ID_DEPARTAMENTO" class="form-select"
-                                asp-items="@(new SelectList(ViewBag.Departamentos, "ID_DEPARTAMENTO", "NOMBRE_DEPARTAMENTO"))">
+                                asp-items="Model.Departamentos">
                             <option value="">Seleccione Departamento</option>
                         </select>
                         <span asp-validation-for="ID_DEPARTAMENTO" class="text-danger"></span>
@@ -83,7 +83,7 @@
                     <div class="col-md-6">
                         <label asp-for="ID_CARGO" class="form-label"></label>
                         <select asp-for="ID_CARGO" class="form-select"
-                                asp-items="@(new SelectList(ViewBag.Cargos, "ID_CARGO", "NOMBRE_CARGO"))">
+                                asp-items="Model.Cargos">
                             <option value="">Seleccione Cargo</option>
                         </select>
                         <span asp-validation-for="ID_CARGO" class="text-danger"></span>
