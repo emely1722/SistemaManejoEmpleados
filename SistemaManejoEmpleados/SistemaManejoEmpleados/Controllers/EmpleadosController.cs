@@ -100,7 +100,7 @@ namespace SistemaManejoEmpleados.Controllers
                 .Include(e => e.IdCargoNavigation)
                 .FirstOrDefault(e => e.IdEmpleado == id);
 
-            if (empleado == null) return NotFound();
+            if (empleado == null) return View();
 
             var model = new EmpleadoViewModel
             {
@@ -126,7 +126,7 @@ namespace SistemaManejoEmpleados.Controllers
         [HttpPost]
         public IActionResult Editar(EmpleadoViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 ViewBag.Departamentos = _context.Departamentos.ToList();
                 ViewBag.Cargos = _context.Cargos.ToList();
@@ -134,7 +134,7 @@ namespace SistemaManejoEmpleados.Controllers
             }
 
             var empleado = _context.Empleados.Find(model.ID_EMPLEADO);
-            if (empleado == null) return NotFound();
+            if (empleado == null) return View();
 
             empleado.NombreEmpleado = model.NOMBRE_EMPLEADO;
             empleado.CedulaEmpleado = model.CEDULA_EMPLEADO;
@@ -146,6 +146,7 @@ namespace SistemaManejoEmpleados.Controllers
             empleado.IdDepartamento = model.ID_DEPARTAMENTO;
             empleado.IdCargo = model.ID_CARGO;
 
+            _context.Empleados.Update(empleado);
             _context.SaveChanges();
             TempData["Mensaje"] = "Empleado actualizado correctamente";
 

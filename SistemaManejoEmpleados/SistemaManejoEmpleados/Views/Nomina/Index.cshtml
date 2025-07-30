@@ -1,0 +1,57 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using SistemaManejoEmpleados.Models
+
+
+@model NominaViewModel
+@{
+    ViewData["Title"] = "Simulación de Nómina";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-info text-white text-center">
+            <h4>Nómina -- Descuentos</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Index" method="post">
+                <div class="mb-3">
+                    <label class="form-label">Seleccione un Empleado</label>
+                    <select asp-for="ID_EMPLEADO" class="form-select" asp-items="@(ViewBag.Empleados)">
+                        <option value="">Elegir Empleado</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-calculator"></i> Calcular Nómina
+                </button>
+            </form>
+
+            @if (TempData["Advertencia"] != null)
+            {
+                <div class="alert alert-warning">@TempData["Advertencia"]</div>
+            }
+
+            @if (TempData["Exito"] != null)
+            {
+                <div class="alert alert-success">@TempData["Exito"]</div>
+            }
+
+            @if (Model != null && Model.ID_EMPLEADO != 0)
+            {
+                <hr />
+                <h5 class="mt-4">Resultado para: <strong>@Model.NOMBRE_EMPLEADO</strong></h5>
+                <p><strong>Salario Bruto:</strong> @Model.SALARIO_EMPLEADO.ToString("C")</p>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item">AFP (2.87%): @Model.AFP.ToString("C")</li>
+                    <li class="list-group-item">ARS (3.04%): @Model.ARS.ToString("C")</li>
+                    <li class="list-group-item">ISR: @Model.ISR.ToString("C")</li>
+                </ul>
+                <p><strong>Total Descuento:</strong> @Model.TOTAL_DESCUENTO.ToString("C")</p>
+                <p><strong>Salario Neto:</strong> @Model.SALARIO_NETO.ToString("C")</p>
+            }
+        </div>
+    </div>
+</div>
