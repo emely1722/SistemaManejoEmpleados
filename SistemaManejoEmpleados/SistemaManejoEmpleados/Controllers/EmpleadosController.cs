@@ -93,17 +93,35 @@ namespace SistemaManejoEmpleados.Controllers
         }
 
         [HttpGet]
-        public IActionResult Editar (int id)
+        public IActionResult Editar(int id)
         {
-            if (ModelState.IsValid)
+            var empleado = _context.Empleados
+                .Include(e => e.IdDepartamentoNavigation)
+                .Include(e => e.IdCargoNavigation)
+                .FirstOrDefault(e => e.IdEmpleado == id);
+
+            if (empleado == null) return NotFound();
+
+            var model = new EmpleadoViewModel
             {
-                var e = _context.Empleados
-                .Include(x => x.IdDepartamento)
-                .Include(x => x.IdCargo)
-                .Include(x => x.IdEmpleado == id);
-            }            
-            return View();            
+                ID_EMPLEADO = empleado.IdEmpleado,
+                NOMBRE_EMPLEADO = empleado.NombreEmpleado,
+                CEDULA_EMPLEADO = empleado.CedulaEmpleado,
+                GENERO = empleado.Genero,
+                TELEFONO_EMPLEADO = empleado.TelefonoEmpleado,
+                FECHA_INICIO = empleado.FechaInicio,
+                SALARIO_EMPLEADO = empleado.SalarioEmpleado,
+                ESTADO = empleado.Estado,
+                ID_DEPARTAMENTO = empleado.IdDepartamento,
+                ID_CARGO = empleado.IdCargo
+            };
+
+            ViewBag.Departamentos = _context.Departamentos.ToList();
+            ViewBag.Cargos = _context.Cargos.ToList();
+
+            return View(model);
         }
+
 
         [HttpPost]
         public IActionResult Editar(EmpleadoViewModel model)
@@ -115,23 +133,25 @@ namespace SistemaManejoEmpleados.Controllers
                 return View(model);
             }
 
-            var e = _context.Empleados.Find(model.ID_EMPLEADO);
-            if (e == null) return NotFound();
+            var empleado = _context.Empleados.Find(model.ID_EMPLEADO);
+            if (empleado == null) return NotFound();
 
-            e.NombreEmpleado = model.NOMBRE_EMPLEADO;
-            e.CedulaEmpleado = model.CEDULA_EMPLEADO;
-            e.Genero = model.GENERO;
-            e.TelefonoEmpleado = model.TELEFONO_EMPLEADO;
-            e.FechaInicio = model.FECHA_INICIO;
-            e.SalarioEmpleado = model.SALARIO_EMPLEADO;
-            e.Estado = model.ESTADO;
-            e.IdDepartamento = model.ID_DEPARTAMENTO;
-            e.IdCargo = model.ID_CARGO;
+            empleado.NombreEmpleado = model.NOMBRE_EMPLEADO;
+            empleado.CedulaEmpleado = model.CEDULA_EMPLEADO;
+            empleado.Genero = model.GENERO;
+            empleado.TelefonoEmpleado = model.TELEFONO_EMPLEADO;
+            empleado.FechaInicio = model.FECHA_INICIO;
+            empleado.SalarioEmpleado = model.SALARIO_EMPLEADO;
+            empleado.Estado = model.ESTADO;
+            empleado.IdDepartamento = model.ID_DEPARTAMENTO;
+            empleado.IdCargo = model.ID_CARGO;
 
             _context.SaveChanges();
             TempData["Mensaje"] = "Empleado actualizado correctamente";
+
             return RedirectToAction("Lista");
         }
+
 
         public IActionResult Eliminar(int id)
         {
@@ -149,8 +169,8 @@ namespace SistemaManejoEmpleados.Controllers
         public IActionResult Exportar()
         {
             var empleados = _context.Empleados
-                .Include(e => e.IdDepartamento)
-                .Include(e => e.IdCargo)
+                .Include(e => e.IdDepartamentoNavigation)
+                .Include(e => e.IdCargoNavigation)
                 .Select(e => new
                 {
                     e.IdEmpleado,
@@ -161,8 +181,8 @@ namespace SistemaManejoEmpleados.Controllers
                     FECHA_INICIO = e.FechaInicio.ToString("yyyy-MM-dd"),
                     e.SalarioEmpleado,
                     ESTADO = e.Estado ? "Activo" : "Inactivo",
-                    DEPARTAMENTO = e.IdDepartamento,
-                    CARGO = e.IdCargo
+                    DEPARTAMENTO = e.IdDepartamentoNavigation.NombreDepartamento,
+                    CARGO = e.IdCargoNavigation.NombreCargo
                 }).ToList();
 
             var csv = new System.Text.StringBuilder();
