@@ -17,7 +17,24 @@ namespace SistemaManejoEmpleados.Models
         public decimal ISR => decimal.Round(CalcularISR(SALARIO_EMPLEADO), 2);
         public decimal SALARIO_NETO => decimal.Round(SALARIO_EMPLEADO - AFP - ARS - ISR, 2);
         public decimal TOTAL_DESCUENTO => AFP + ARS + ISR;
+        public DateTime FECHA_INGRESO { get; set; } 
+        public string TiempoEnEmpresa
+        {
+            get
+            {
+                var hoy = DateTime.Today;
+                var años = hoy.Year - FECHA_INGRESO.Year;
+                var meses = hoy.Month - FECHA_INGRESO.Month;    
 
+                if (meses < 0)
+                {
+                    años--;
+                    meses += 12;
+                }
+
+                return $"{años} año(s), {meses} mes(es)";
+            }
+        }
 
         private decimal CalcularISR(decimal salarioMensual)
         {

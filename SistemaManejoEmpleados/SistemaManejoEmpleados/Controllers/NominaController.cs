@@ -44,13 +44,14 @@ namespace SistemaManejoEmpleados.Controllers
                 return View();
             }
 
-            
+
 
             var model = new NominaViewModel
             {
                 ID_EMPLEADO = empleado.IdEmpleado,
                 NOMBRE_EMPLEADO = empleado.NombreEmpleado,
-                SALARIO_EMPLEADO = empleado.SalarioEmpleado
+                SALARIO_EMPLEADO = empleado.SalarioEmpleado,
+                FECHA_INGRESO = empleado.FechaInicio
             };
 
             TempData["Exito"] = "Cálculo ya fue realizado";

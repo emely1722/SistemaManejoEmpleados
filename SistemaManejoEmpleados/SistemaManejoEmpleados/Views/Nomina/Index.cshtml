@@ -42,7 +42,10 @@
             @if (Model != null && Model.ID_EMPLEADO != 0)
             {
                 <hr />
-                <h5 class="mt-4">Resultado para: <strong>@Model.NOMBRE_EMPLEADO</strong></h5>
+                <h5 class="mt-4">
+                    Resultado para: <strong>@Model.NOMBRE_EMPLEADO</strong><br />
+                    <small class="text-muted">Tiempo en la empresa: @Model.TiempoEnEmpresa</small>
+                </h5>
                 <p><strong>Salario Bruto:</strong> @Model.SALARIO_EMPLEADO.ToString("C")</p>
                 <ul class="list-group mb-3">
                     <li class="list-group-item">AFP (2.87%): @Model.AFP.ToString("C")</li>
