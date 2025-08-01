@@ -186,7 +186,7 @@ namespace SistemaManejoEmpleados.Controllers
                     CARGO = e.IdCargoNavigation.NombreCargo
                 }).ToList();
 
-            var csv = new System.Text.StringBuilder();
+            var csv = new StringBuilder();
             csv.AppendLine("\"ID\",\"Nombre\",\"Cédula\",\"Género\",\"Teléfono\",\"Fecha de Inicio\",\"Salario\",\"Estado\",\"Departamento\",\"Cargo\"");
 
             foreach (var e in empleados)
@@ -194,8 +194,8 @@ namespace SistemaManejoEmpleados.Controllers
                 csv.AppendLine($"\"{e.IdEmpleado}\",\"{e.NombreEmpleado}\",\"{e.CedulaEmpleado}\",\"{e.Genero}\",\"{e.TelefonoEmpleado}\",\"{e.FECHA_INICIO}\",\"{e.SalarioEmpleado}\",\"{e.ESTADO}\",\"{e.DEPARTAMENTO}\",\"{e.CARGO}\"");
             }
 
-            var bom = System.Text.Encoding.UTF8.GetPreamble();
-            var bytes = System.Text.Encoding.UTF8.GetBytes(csv.ToString());
+            var bom = Encoding.UTF8.GetPreamble();
+            var bytes = Encoding.UTF8.GetBytes(csv.ToString());
             var final = bom.Concat(bytes).ToArray();
 
             return File(final, "text/csv", "Empleados.csv");

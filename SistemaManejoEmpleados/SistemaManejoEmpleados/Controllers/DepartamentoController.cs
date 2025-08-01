@@ -72,7 +72,7 @@ namespace SistemaManejoEmpleados.Controllers
         [HttpPost]
         public IActionResult Editar (DepartamentoViewModel model)
         {
-            if (!ModelState.IsValid) 
+            if (ModelState.IsValid) 
                 return View(model);
 
             var departamento = _context.Departamentos.Find(model.ID_DEPARTAMENTO);
@@ -80,6 +80,7 @@ namespace SistemaManejoEmpleados.Controllers
                 return NotFound();
 
             departamento.NombreDepartamento = model.NOMBRE_DEPARTAMENTO;
+            _context.Departamentos.Update(departamento);
             _context.SaveChanges();
 
             TempData["Mensaje"] = "Departamento Actualizado.";
@@ -104,7 +105,7 @@ namespace SistemaManejoEmpleados.Controllers
             var departamentos = _context.Departamentos.ToList();
 
             var csv = new StringBuilder();
-            csv.AppendLine("\"ID\",\"Nombre del Departamento\"");
+            csv.AppendLine("\"Id\",\"Nombre del departamento\"");
 
             foreach (var d in departamentos)
             {

@@ -59,7 +59,7 @@ namespace SistemaManejoEmpleados.Controllers
         {
             var cargos = _context.Cargos.Find(id);
             if (cargos == null)
-                return NotFound();
+                return View();
 
             var model = new CargoViewModel
             {
@@ -73,7 +73,7 @@ namespace SistemaManejoEmpleados.Controllers
         [HttpPost]
         public IActionResult Editar(CargoViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
                 return View(model);
 
             var cargos = _context.Cargos.Find(model.ID_CARGO);
@@ -81,6 +81,7 @@ namespace SistemaManejoEmpleados.Controllers
                 return NotFound();
 
             cargos.NombreCargo = model.NOMBRE_CARGO;
+            _context.Cargos.Update(cargos);
             _context.SaveChanges();
 
             TempData["Mensaje"] = "Cargo Actualizado.";
