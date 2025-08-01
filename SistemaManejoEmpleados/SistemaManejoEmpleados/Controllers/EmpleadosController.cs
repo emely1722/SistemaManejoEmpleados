@@ -22,30 +22,46 @@ namespace SistemaManejoEmpleados.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var model = new EmpleadoViewModel()
-            {
-                Departamentos = _context.Departamentos
+
+            ViewBag.Departamentos = _context.Departamentos
                 .Select(d => new SelectListItem
                 {
                     Value = d.IdDepartamento.ToString(),
                     Text = d.NombreDepartamento
-                }).ToList(),
+                }).ToList();
 
-                Cargos = _context.Cargos
-                .Select(c => new SelectListItem 
-                {
-                   Value = c.IdCargo.ToString(),
-                   Text = c.NombreCargo
-                }).ToList()
+            ViewBag.Cargos = _context.Cargos
+            .Select(c => new SelectListItem
+            {
+                Value = c.IdCargo.ToString(),
+                Text = c.NombreCargo
+            }).ToList();
 
-            };
-            return View(model);
+            return View(new EmpleadoViewModel());
         }
 
         [HttpPost]
         public IActionResult Registrar(EmpleadoViewModel model)
         {
-            if (!ModelState.IsValid)
+            ViewBag.Departamentos = _context.Departamentos
+                .Select(d => new SelectListItem
+                {
+                    Value = d.IdDepartamento.ToString(),
+                    Text = d.NombreDepartamento
+                }).ToList();
+
+            ViewBag.Cargos = _context.Cargos
+            .Select(c => new SelectListItem
+            {
+                Value = c.IdCargo.ToString(),
+                Text = c.NombreCargo
+            }).ToList();
+
+            if (_context.Empleados.Any(e => e.CedulaEmpleado == model.CEDULA_EMPLEADO))
+            {
+                TempData["Mensaje"] = "Ya existe un empleado con esa cédula.";
+            }
+            else if (!ModelState.IsValid)
             {
                 var nuevoempleado = new Empleado();
                 {

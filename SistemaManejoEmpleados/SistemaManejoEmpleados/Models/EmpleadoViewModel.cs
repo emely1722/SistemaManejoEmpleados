@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,6 +9,7 @@ using System.Runtime.InteropServices;
 namespace SistemaManejoEmpleados.Models
 {
     [Table("EMPLEADO")]
+    [Index (nameof(CEDULA_EMPLEADO), IsUnique = true)]
     public class EmpleadoViewModel
     {
         [Key]
