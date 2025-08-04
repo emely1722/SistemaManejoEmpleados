@@ -57,7 +57,13 @@ namespace SistemaManejoEmpleados.Controllers
                 Text = c.NombreCargo
             }).ToList();
 
-            if (_context.Empleados.Any(e => e.CedulaEmpleado == model.CEDULA_EMPLEADO))
+            DateTime FechaInicio = model.FECHA_INICIO.Date;
+            if (FechaInicio > DateTime.Now)
+            {
+                TempData["Mensaje"] = "No es posible registrar un empleado con fecha futura.";
+                return View("Index", model);
+            }
+            else if (_context.Empleados.Any(e => e.CedulaEmpleado == model.CEDULA_EMPLEADO))
             {
                 TempData["Mensaje"] = "Ya existe un empleado con esa cédula.";
             }
@@ -142,11 +148,14 @@ namespace SistemaManejoEmpleados.Controllers
         [HttpPost]
         public IActionResult Editar(EmpleadoViewModel model)
         {
-            if (ModelState.IsValid)
+            ViewBag.Departamentos = _context.Departamentos.ToList();
+            ViewBag.Cargos = _context.Cargos.ToList();
+                        
+            DateTime FechaInicio = model.FECHA_INICIO.Date;
+            if (FechaInicio > DateTime.Now)
             {
-                ViewBag.Departamentos = _context.Departamentos.ToList();
-                ViewBag.Cargos = _context.Cargos.ToList();
-                return View(model);
+                TempData["Mensaje"] = "No es posible editar este empleado con fecha futura.";
+                return View("Editar", model);
             }
 
             var empleado = _context.Empleados.Find(model.ID_EMPLEADO);

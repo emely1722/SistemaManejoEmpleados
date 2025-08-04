@@ -39,7 +39,7 @@ namespace SistemaManejoEmpleados.Models
 
 
         [Required(ErrorMessage = "Fecha de inicio obligatoria.")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [Column("FECHA_INICIO")]
         [Display(Name = "Fecha de Inicio")]
         public DateTime FECHA_INICIO { get; set; }
@@ -60,14 +60,14 @@ namespace SistemaManejoEmpleados.Models
         [Display(Name = "Departamento")]
         public int ID_DEPARTAMENTO { get; set; }
 
-        public IEnumerable<SelectListItem> Departamentos { get; set; }
+        //public IEnumerable<SelectListItem> Departamentos { get; set; }
 
         [Required(ErrorMessage = "Seleccione un cargo.")]
         [ForeignKey("CARGO")]
         [Display(Name = "Cargo")]
         public int ID_CARGO { get; set; }
 
-        public IEnumerable<SelectListItem> Cargos { get; set; }
+        //public IEnumerable<SelectListItem> Cargos { get; set; }
 
         [Display(Name = "Tiempo en la Empresa")]
         public string TIEMPO_EN_EMPRESA
